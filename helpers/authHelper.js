@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 exports.hashPassword = async (password) => {
   try {
     const salted = 10;
-    const hashedPassword = await bcrypt.bcrypt(password, salted);
+    const hashedPassword = await bcrypt.hash(password, salted);
     return hashedPassword;
   }
   catch(err){

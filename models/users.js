@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = require('mongoose');
+const {Schema} = mongoose;
 
 const userSchema = new Schema({
     firstName: { type: String, required: true },
@@ -18,7 +18,8 @@ const userSchema = new Schema({
     phoneNumber: {type: Number, required: true},
     address: {type: String, required: true},
     password: { type: String, minLength: 8, required: true },
+    role: {type: Number, default: 0},
     token: String
-}, {timestamp});
+}, {timestamps: true});
 
 exports.User = mongoose.model('User', userSchema);
