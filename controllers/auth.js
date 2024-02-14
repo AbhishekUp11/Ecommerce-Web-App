@@ -1,25 +1,32 @@
 const user = require('../models/users');
 const User = user.User;
 const authHelper = require('../helpers/authHelper');
+const jwt = require('jsonwebtoken');
 
 exports.signUp = async (req, res) => {
-  console.log("error aa rha hai",req.body)
+
   const {firstName, lastName, email, phoneNumber, address, password} = req.body;
+
   if(!firstName){
     res.status(200).send("first Name is required field");
   }
+
   if(!lastName){
     res.status(200).send("last Name is required field");
   }
+
   if(!email){
     res.status(200).send("Email is required field");
   }
+
   if(!phoneNumber){
     res.status(200).send("Phone Number is required field");
   }
+
   if(!address){
     res.status(200).send("Address is required field");
   }
+
   if(!password){
     res.status(200).send("Password is required field");
   }
@@ -31,14 +38,17 @@ exports.signUp = async (req, res) => {
   }
 
   const hashedPassword = await authHelper.hashPassword(password);
-  
+  const createdToken = jwt.sign({email:email}, 'sfsdfnsffwecnsdcssdkfjsaklsksdlfk', {
+    expiresIn: '7d'}, {algorithm: 'RS256'})
   const user = new User(req.body);
-  user.password = hashedPassword
+  user.token = createdToken;
+  user.password = hashedPassword;
+
   try{
     user.save()
     res.status(202).send({
       success: true,
-      message: " user created successfully",
+      message: "User created successfully",
       user: user
     })
   }catch(err){
@@ -51,5 +61,32 @@ exports.signUp = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-   
+  const {email, password} = req.body;
+
+  if(!email || !password){
+    return res.status(200).send({
+      message: "Either email or Password is not present"
+    })
+  }
+  const user = await User.findOne({email: email});
+  if(!user){
+    return res.status(200).send({
+      success: false,
+      message: "User is not Registered"
+    })
+  }
+  const existingPassword = user.password;
+  const result = await authHelper.compareDuplicate(password, existingPassword);
+  if(!result){
+    return res.status(200).send({
+             success: false,
+             message: "Invalid user"
+          })
+  }else{
+    return res.status(202).send({
+      success: true,
+      message: "login successfully",
+      user 
+    })
+  }
 };
