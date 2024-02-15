@@ -86,7 +86,11 @@ exports.login = async (req, res) => {
     return res.status(202).send({
       success: true,
       message: "login successfully",
-      user 
+      user
     })
   }
 };
+
+exports.isTest = (req, res) => {
+  res.status(302).send("isTest is verified")
+}
