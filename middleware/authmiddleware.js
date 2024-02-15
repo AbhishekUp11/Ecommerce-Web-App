@@ -9,7 +9,7 @@ exports.isSignInNeeded = async (req, res, next) => {
       const result = jwt.verify(token,
         'sfsdfnsffwecnsdcssdkfjsaklsksdlfk'
         );
-      next();  
+      next();
      }catch(err){
         res.status(303).send("Not a valid User")
      }
