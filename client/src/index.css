@@ -74,3 +74,15 @@ cart-item{
 .pnf-btn:hover{
   background-color:rgb(254, 248, 239);
 }
+
+.register-form{
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: column;
+  height: 70vh;
+}
+
+.form-label{
+  font-size: 16px;
+}
