@@ -1,17 +1,36 @@
 import React, { useState } from "react";
 import Layout from "../../components/layout/Layout";
+import {toast} from 'react-hot-toast';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLasttName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+	const navigate = useNavigate();
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
-
+		const data = {firstName, lastName, email, phoneNumber, address, password}
+		const route = `${process.env.REACT_APP_API}/api/v1/auth/register`
+		console.log(route)
+    try{
+      const res = await axios.post(route, data);
+			console.log("res.data", res.data)
+			if(res.data.success){
+				toast.success(res.data.message)
+				navigate('/login')
+			}else{
+				toast.error(res.data.message)
+			}
+		}catch(err){
+			console.log(err);
+			toast.error('Something went wrong')
+		}
   }
 
   return (
@@ -53,9 +72,9 @@ const Signup = () => {
             <input
               className="form-control"
               type="number"
-              value={mobile}
+              value={phoneNumber}
               required= {true}
-              onChange={(e) => setMobile(e.target.value)}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
           <div className="mb-1">
@@ -69,7 +88,7 @@ const Signup = () => {
             />
           </div>
           <div className="mb-1">
-            <label className="form-label">Address</label>
+            <label className="form-label">Password</label>
             <input
               className="form-control"
               type="password"

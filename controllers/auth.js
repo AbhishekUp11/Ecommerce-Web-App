@@ -8,33 +8,36 @@ exports.signUp = async (req, res) => {
   const {firstName, lastName, email, phoneNumber, address, password} = req.body;
 
   if(!firstName){
-    res.status(200).send("first Name is required field");
+    res.status(200).send({message: "first Name is required field"});
   }
 
   if(!lastName){
-    res.status(200).send("last Name is required field");
+    res.status(200).send({message: "last Name is required field"});
   }
 
   if(!email){
-    res.status(200).send("Email is required field");
+    res.status(200).send({message: "Email is required field"});
   }
 
   if(!phoneNumber){
-    res.status(200).send("Phone Number is required field");
+    res.status(200).send({message: "Phone Number is required field"});
   }
 
   if(!address){
-    res.status(200).send("Address is required field");
+    res.status(200).send({message: "Address is required field"});
   }
 
   if(!password){
-    res.status(200).send("Password is required field");
+    res.status(200).send({message: "Password is required field"});
   }
 
   // check existing user
   const existingUser = await User.findOne({email});
   if(existingUser){
-    res.status(200).send("User already Exists, Please login")
+    res.status(200).send({
+      success: false,
+      message: "User already Exists, Please login"
+    })
   }
 
   const hashedPassword = await authHelper.hashPassword(password);
@@ -46,9 +49,9 @@ exports.signUp = async (req, res) => {
 
   try{
     user.save()
-    res.status(202).send({
+    res.status(200).send({
       success: true,
-      message: "User created successfully",
+      message: "User Registered successfully",
       user: user
     })
   }catch(err){

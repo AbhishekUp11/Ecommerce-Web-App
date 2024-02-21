@@ -3,6 +3,7 @@ const server = express();
 const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
 const morgan = require('morgan');
+const cors = require('cors');
 
 // connect mongoDB
 async function main(){
@@ -14,6 +15,7 @@ main().catch((err) => {
 })
 
 // middleware
+server.use(cors())
 server.use(express.json())
 server.use(morgan('dev'))
 

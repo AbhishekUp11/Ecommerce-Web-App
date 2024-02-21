@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import {Helmet} from 'react-helmet';
+import { Toaster } from 'react-hot-toast';
 
 const Layout = ({children, tittle, description, keyword}) => {
     return (
@@ -15,6 +16,7 @@ const Layout = ({children, tittle, description, keyword}) => {
         <Header/>
         <main style={{minHeight: '76vh'}}>
           <h2>{children}</h2>
+          <Toaster/>
         </main>
         <Footer/>
       </>
