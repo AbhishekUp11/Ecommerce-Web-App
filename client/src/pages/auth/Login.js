@@ -1,13 +1,34 @@
 import React, { useState } from "react";
 import Layout from "../../components/layout/Layout";
+import {toast} from 'react-hot-toast';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleForm = async (e) => {
+    e.preventDefault();
+    const dataParams = {email, password};
+
+    try{
+      const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, dataParams);
+      if(res.data.success){
+        toast.success(res.data.message)
+        navigate('/')
+      }else{
+        toast.error(res.data.message)
+      }
+    }catch(err){
+      toast.error('Something went wrong')
+    }   
+  };
 
   return (
     <Layout>
-      <form className="register-form">
+      <form className="register-form" onSubmit={handleForm}>
         <div className="mb-2">
           <label className="form-label">Email</label>
           <input

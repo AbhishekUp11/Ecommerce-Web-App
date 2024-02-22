@@ -31,7 +31,7 @@ const Signup = () => {
 			console.log(err);
 			toast.error('Something went wrong')
 		}
-  }
+  };
 
   return (
     <>

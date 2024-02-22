@@ -6,7 +6,7 @@ const authController = require('../controllers/auth');
 
 router
     .post('/register', authController.signUp)
-    .get('/login', authController.login)
+    .post('/login', authController.login)
     .get('/test', authenticateMiddleware.isAllowed, authController.isTest)
 
 exports.router = router ;
