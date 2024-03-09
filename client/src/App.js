@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Signup from './pages/auth/Signup';
 import Login from './pages/auth/Login';
+import Dashboard from './pages/user/Dashboard';
+import PrivateRoute from './components/routes/Private'; 
 
 
 function App() {
@@ -13,13 +15,16 @@ function App() {
     <>
       <Routes>
         <Route path = '/' element = {<Home/>}/>
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route path="" element={<Dashboard />} />
+        </Route>
         <Route path = '/about' element = {<About/>}/>
         <Route path = '/contact' element = {<Contact/>}/>
         <Route path = '/policy' element = {<Policy/>}/>
         <Route path = '/register' element = {<Signup/>}/>
         <Route path = '/login' element = {<Login/>}/>
         <Route path = '/*' element = {<Page404/>}/>
-      </Routes> 
+      </Routes>
     </>
   );
 }
