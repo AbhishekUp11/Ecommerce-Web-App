@@ -11,11 +11,12 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
-	const navigate = useNavigate();
+  const [answer, setAnswer] = useState("");
+  const navigate = useNavigate();
 
   const handleForm = async (e) => {
     e.preventDefault();
-		const data = {firstName, lastName, email, phoneNumber, address, password}
+		const data = {firstName, lastName, email, phoneNumber, address, answer,  password}
 		const route = `${process.env.REACT_APP_API}/api/v1/auth/register`
 		console.log(route)
     try{
@@ -85,6 +86,17 @@ const Signup = () => {
               value={address}
               required= {true}
               onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          <div className="mb-1">
+            <label className="form-label">Answer</label>
+            <input
+              className="form-control"
+              type="text"
+              value={answer}
+              required= {true}
+              placeholder="What is your father's age"
+              onChange={(e) => setAnswer(e.target.value)}
             />
           </div>
           <div className="mb-1">

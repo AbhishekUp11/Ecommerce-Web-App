@@ -9,6 +9,7 @@ router
     .post('/login', authController.login)
     .get('/test', authenticateMiddleware.isAllowed, authController.isTest)
     .get('/user-auth', authenticateMiddleware.isSignInNeeded, checkUser)
+    .post('/forgot-password', authController.forgotPassword)
 
 function checkUser(req, res) {
    res.status(200).send({
