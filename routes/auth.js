@@ -10,8 +10,16 @@ router
     .get('/test', authenticateMiddleware.isAllowed, authController.isTest)
     .get('/user-auth', authenticateMiddleware.isSignInNeeded, checkUser)
     .post('/forgot-password', authController.forgotPassword)
+    .get('/admin-auth', authenticateMiddleware.isSignInNeeded, authenticateMiddleware.isAllowed, checkAdmin)
+
+function checkAdmin(req, res){
+   res.status(200).send({
+     ok: true
+   })
+}
 
 function checkUser(req, res) {
+   console.log()
    res.status(200).send({
       ok: true
    })

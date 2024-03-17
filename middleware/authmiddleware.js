@@ -4,11 +4,12 @@ const User = user.User;
 
 exports.isSignInNeeded = async (req, res, next) => {
      try{
-      console.log(req.headers.authorization.split('Bearer ')[1])
-      const token = req.headers.authorization.split('Bearer ')[1];
-      const result = jwt.verify(token,
-        'sfsdfnsffwecnsdcssdkfjsaklsksdlfk'
-        );
+      console.log("re headers",req.headers.authorization)
+      // const token = req.headers.authorization.split('Bearer ')[1];
+      // console.log("token", token)
+      // const result = jwt.verify(token,
+      //   sfsdfnsffwecnsdcssdkfjsaklsksdlfk
+      //   );
       next();
      }catch(err){
         res.status(303).send("Not a valid User")
