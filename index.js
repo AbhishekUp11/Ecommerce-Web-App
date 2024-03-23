@@ -2,7 +2,8 @@ const express = require('express');
 const server = express();
 const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
-const categoryRouter = require('./routes/category')
+const categoryRouter = require('./routes/category');
+const productRouter = require('./routes/product')
 const morgan = require('morgan');
 const cors = require('cors');
 
@@ -23,6 +24,7 @@ server.use(morgan('dev'))
 // All routes
 server.use('/api/v1/auth', authRouter.router)
 server.use('/api/v1/category', categoryRouter.router)
+server.use('/api/v1/product', productRouter.router)
 
 server.get('/', (req, res) => {
   res.send("Welcome to Ecommerce world!")
