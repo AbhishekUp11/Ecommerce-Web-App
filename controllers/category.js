@@ -1,6 +1,7 @@
 const category = require("../models/category");
 const Category = category.Category;
-const slugify = require('slugify')
+const slugify = require('slugify');
+const mongoose = require('mongoose');
 
 exports.createCategory = async (req, res) => {
   try {
@@ -23,7 +24,7 @@ exports.createCategory = async (req, res) => {
 			res.status(200).send({
 				success: true,
 				message: "Category created successfully",
-				user: newCategory
+				category: newCategory
 			})
 		}catch(err){
 			console.log("error", err)
@@ -64,9 +65,9 @@ exports.updateCategory = async (req, res) => {
 	}
 };
 
-exports.getAllCategory = async (req, res) => {
+exports.getAllCategories = async (req, res) => {
   try{
-		const categories = await Category.find({});
+	  const categories = await Category.find();
     res.status(200).send({
 			success: true,
 			message: "All Categies List",
@@ -107,7 +108,7 @@ exports.getCategoryById = async (req, res) => {
 exports.deleteCategory = async (req, res) => {
   try{
 		const id = req.params;
-		const category = await Category.findByIdAndDelete({_id: id})
+		await Category.findByIdAndDelete(id);
 		res.status(200).send({
 			success: true,
 			message: "Category deleted Successfully",

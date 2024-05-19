@@ -18,7 +18,7 @@ router.put(
 // get All Categories
 router.get(
   '/all-category',
-  CategoryController.getAllCategory
+  CategoryController.getAllCategories
 );
 
 // get category by id
@@ -29,7 +29,7 @@ router.get(
 
 // delete category
 router.delete(
-  '/delete-category',
+  '/delete-category/:id',
   CategoryController.deleteCategory
 )
 

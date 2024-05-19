@@ -5,7 +5,7 @@ const slugify = require('slugify')
 
 exports.createProduct = async (req, res) => {
   try{
-    const {name, slug, description, price, category, quantity, shipping} = req.fields;
+    const {name, description, price, category, quantity, shipping} = req.fields;
     const {image} = req.files;
     switch(true){
         case !name:
@@ -24,6 +24,10 @@ exports.createProduct = async (req, res) => {
           return res.status(300).send({
               message: "Category is required"
             })
+        case !quantity:
+          return res.status(300).send({
+            message: 'Quantity is required'
+          })
         case image && image.size < 10000:
           return res.status(300).send({
               message: "Photo is required"
