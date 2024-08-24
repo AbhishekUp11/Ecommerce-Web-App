@@ -11,5 +11,8 @@ router
   .get('/product-image/:pid', productController.getProductImage)
   .put('/update-product/:pid', productController.updateProduct)
   .delete('/delete-product/:pid', productController.deleteProduct)
+  .get('/product-list/:page', productController.productList)
+  .get('/product-count', productController.productCount)
+  .post('/product-filters', productController.filterProduct)
 
 exports.router = router;

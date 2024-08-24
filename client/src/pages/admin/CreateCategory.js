@@ -28,13 +28,13 @@ const CreateCategory = () => {
     getCategories();
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const {data} = axios.post('/api/v1/category/create-category', {
+      const data = await axios.post(`${process.env.REACT_APP_API}/api/v1/category/create-category`, {
         name
       });
-      if(data.success){
+      if(data?.data?.success){
         toast.success(`${name} Created Successfully`);
         getCategories()
       }
@@ -44,13 +44,14 @@ const CreateCategory = () => {
     }
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault()
     try{
-      const {data} = axios.put(`${process.env.REACT_APP_API}/api/v1/category/update-category/${selected._id}`, {
+      const data = await axios.put(`${process.env.REACT_APP_API}/api/v1/category/update-category/${selected._id}`, {
         name: updatedName
       });
-      if(data?.success){
+      if(data?.data?.success){
+        setVisible(false)
         toast.success(`${updatedName} Updated Successfully`)
         getCategories();
       }
@@ -60,16 +61,19 @@ const CreateCategory = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    try{
-      const {data} = axios.delete(`${process.env.REACT_APP_API}/api/v1/category/delete-category/${id}`);
-      if(data.success){
-        toast.success(`${data.data.name} deleted successfully`)
+  const handleDelete = async (pId) => {
+    try {
+      const data = await axios.delete(
+        `${process.env.REACT_APP_API}/api/v1/category/delete-category/${pId}`
+      );
+      if (data?.data?.success) {
+        toast.success(`category is deleted`);
         getCategories();
+      } else {
+        toast.error(data?.data?.message);
       }
-
-    }catch(error){
-      toast.error("Error in deleting the Category")
+    } catch (error) {
+      toast.error("Somtihing went wrong");
     }
   };
 

@@ -17,8 +17,8 @@ export default function AdminRoute() {
         setOk(false);
       }
     };
-    if (auth?.token) authCheck();
-  }, [auth?.token]);
+    if (auth?.user?.token) authCheck();
+  }, [auth?.user?.token]);
 
   return ok ? <Outlet /> : <Spinner path = ""/>;
 }
