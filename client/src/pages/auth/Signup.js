@@ -21,7 +21,6 @@ const Signup = () => {
 		console.log(route)
     try{
       const res = await axios.post(route, data);
-			console.log("res.data", res.data)
 			if(res.data.success){
 				toast.success(res.data.message)
 				navigate('/login')

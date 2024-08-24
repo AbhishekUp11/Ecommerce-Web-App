@@ -8,7 +8,7 @@ router
   .get('/all-products', productController.getAllProducts)
   .get('/product/:pid', productController.getProductById)
   .get('/products/:slug', productController.getProductBySlug)
-  .get('/product-image/:pid', productController.getPrdoctImage)
+  .get('/product-image/:pid', productController.getProductImage)
   .put('/update-product/:pid', productController.updateProduct)
   .delete('/delete-product/:pid', productController.deleteProduct)
 

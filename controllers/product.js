@@ -93,7 +93,6 @@ exports.getProductById = async (req, res) => {
 
 exports.getProductBySlug = async (req, res) => {
   try{
-    console.log("req.params", req.params)
     const slug = req.params.slug;
     const product = await Product.findOne({slug}).populate("category").select("-image");
     res.status(202).send({
@@ -131,7 +130,7 @@ exports.deleteProduct = async (req, res) => {
   }
 };
 
-exports.getPrdoctImage = async (req, res) => {
+exports.getProductImage = async (req, res) => {
   try{
     const id = req.params.pid;
     const product = await Product.findById({_id: id}).select("image");

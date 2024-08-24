@@ -86,3 +86,8 @@ cart-item{
 .form-label{
   font-size: 16px;
 }
+
+.product-link {
+  text-decoration: none !important;
+  color: black !important;
+}
