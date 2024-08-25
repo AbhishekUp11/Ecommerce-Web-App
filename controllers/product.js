@@ -1,5 +1,7 @@
 const res = require('express/lib/response');
 const product = require('../models/product');
+const category = require('../models/category');
+const Category = category.Category;
 const Product = product.Product;
 const fs = require('fs');
 const slugify = require('slugify')
@@ -259,6 +261,50 @@ exports.filterProduct = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "Error WHile Filtering Products",
+      error,
+    });
+  }
+};
+
+exports.getProductCategory = async (req, res) => {
+  try {
+    const category = await Category.findOne({ slug: req.params.slug });
+    const products = await Product.find({ category }).populate("category");
+    res.status(200).send({
+      success: true,
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error While Getting products",
+    });
+  }
+};
+
+exports.getRelatedProducts = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await Product
+      .find({
+        category: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error while geting related product",
       error,
     });
   }

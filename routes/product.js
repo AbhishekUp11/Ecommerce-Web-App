@@ -14,5 +14,7 @@ router
   .get('/product-list/:page', productController.productList)
   .get('/product-count', productController.productCount)
   .post('/product-filters', productController.filterProduct)
+  .get('/product-category/:slug', productController.getProductCategory)
+  .get('/related-product', productController.getRelatedProducts)
 
 exports.router = router;
