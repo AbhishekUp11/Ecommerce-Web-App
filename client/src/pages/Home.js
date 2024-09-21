@@ -5,10 +5,13 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/Cart";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const [auth, setAuth] = useAuth();
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useCart();
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
@@ -156,7 +159,12 @@ const Home = () => {
                   >
                     More Details
                   </button>
-                  <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                  <button class="btn btn-secondary ms-1"
+                   onClick={() => {
+                    setCart([...cart, p])
+                    toast.success('Product added to cart successfully')
+                  }}
+                  >ADD TO CART</button>
                 </div>
               </div>
             ))}
