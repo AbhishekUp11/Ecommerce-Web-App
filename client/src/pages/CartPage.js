@@ -41,7 +41,7 @@ const CartPage = () => {
         <div className="row">
           <div className="col-md-12">
             <h1 className="text-center bg-light p-2 mb-1">
-              {`Hello ${auth?.token && auth?.user?.firstName}`}
+              {`Hello ${auth?.user?.firstName}`}
             </h1>
             <h4 className="text-center">
               {cart?.length
@@ -58,7 +58,7 @@ const CartPage = () => {
               <div className="row mb-2 p-3 card flex-row">
                 <div className="col-md-4">
                   <img
-                    src={`/api/v1/product/product-photo/${p._id}`}
+                    src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${p._id}`}
                     className="card-img-top"
                     alt={p.name}
                     width="100px"

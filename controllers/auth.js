@@ -132,3 +132,36 @@ exports.forgotPassword = async (req, res) =>{
 exports.isTest = (req, res) => {
   res.status(302).send("isTest is verified")
 }
+
+exports.updateProfile = async (req, res) => {
+  try{
+    const { name, email, password, phone, address, id} = req.body;
+    const user = await User.findById(id);
+    if (password && password.length < 6) {
+      return res.json({ error: "Password is required and 6 character long" });
+    }
+    const hashedPassword = password ? await authHelper.hashPassword(password) : undefined;
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        firstName: name || user.firstName,
+        password: hashedPassword || user.password,
+        phoneNumber: phone || user.phoneNumber,
+        address: address || user.address,
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      success: true,
+      message: "Profile Updated SUccessfully",
+      updatedUser,
+    });
+
+  }catch(err){
+    res.status(500).send({
+      success: false,
+      message: 'Something went wrong',
+      err
+    })
+  }
+};
